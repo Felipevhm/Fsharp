@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dGUplJWNi5fXXFKNSmW7B8oceJUIvcA4zMf+hJ+6ayEnUeJn7TscO/sNoB4F27oEtOR2H/oixG3n2BpXegV4yQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\fvhma\\.nuget\\packages\\fsharp.core\\8.0.200\\fsharp.core.8.0.200.nupkg.sha512"
+  ],
+  "logs": []
+}
