@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj": {}
+    "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp_files\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj": {}
   },
   "projects": {
-    "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj": {
+    "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp_files\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj",
+        "projectUniqueName": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp_files\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj",
         "projectName": "MyFSharpApp",
-        "projectPath": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj",
+        "projectPath": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp_files\\Fsharp\\MyFSharpApp\\MyFSharpApp.fsproj",
         "packagesPath": "C:\\Users\\fvhma\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp\\MyFSharpApp\\obj\\",
+        "outputPath": "C:\\Users\\fvhma\\Documents\\_ok Documentos\\DEV\\Fsharp_files\\Fsharp\\MyFSharpApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\fvhma\\AppData\\Roaming\\NuGet\\NuGet.Config"
