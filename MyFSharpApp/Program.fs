@@ -41,8 +41,6 @@ let churchesData =
 
     ]
 
-printfn "%A\n\n" churchesData
-
 let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
     churchesData
     |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
@@ -60,30 +58,18 @@ let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool li
     churchesData
     |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
 
-//let checkMember = (isMember "Maria" churchesData)
-//printfn "%A\n" checkMember
-
 //2)
 let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
     churchesData
     |> List.map (fun (church, status) -> church.Name)
 
-// let churchNames = (getChurchNames churchesData)
 
-//printfn "%A\n" churchNames
 //3)
 let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
     List.zip churchNames checkMember
     |> List.filter snd
     |> List.map fst
 
-//let filteredChurchNames = filterChurchNames churchNames checkMember
-
-//printfn "%A\n" filteredChurchNames
-//----------------------------------------------------------------  
-// let checkMember = (isMember "Maria" churchesData)
-
-// printfn "%A\n" checkMember
 
 let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
 
