@@ -1,4 +1,12 @@
-﻿// Definição dos tipos algébricos
+// d - crie um exemplo onde você representa dados sobre algumas igrejas 
+// de Florianópolis utilizando os tipos algébricos do F#. 
+
+// Utilize tanto records como discriminated unions. 
+
+// Escreva uma função que processa uma lista que contém instâncias dos 
+// tipos algébricos que você definiu.
+
+// Definição dos tipos algébricos
 
 // Record para representar os detalhes de uma igreja
 type Church =
