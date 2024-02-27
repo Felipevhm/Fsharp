@@ -1,3 +1,4 @@
+
 type Church =
     { Name : string
       Denomination : string
@@ -47,40 +48,20 @@ let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
     |> Set.ofList
     |> Set.toList
 
-let returnMembers = (peopleSearch churchesData)
+let allPeople = (peopleSearch churchesData)
 
-printfn "%A\n" returnMembers
+let personChurches (person: string) (churchesData:(Church * ChurchStatus) list)  =
+    List.map (fun (church, _ ) -> (church.Name, (Array.toList church.CommunityMembers))) churchesData
+    |> List.groupBy (fun (_, members) -> members |> List.contains person)
+    |> List.filter (fun (trueTuple, _) -> trueTuple)
+    |> List.map snd
+    |> List.collect (List.map fst) 
 
-
-// ----
-//1)
-let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool list  =
-    churchesData
-    |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
-
-//2)
-let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
-    churchesData
-    |> List.map (fun (church, status) -> church.Name)
-
-
-//3)
-let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
-    List.zip churchNames checkMember
-    |> List.filter snd
-    |> List.map fst
+// for person in returnMembers do
+for someone in allPeople do
+  let memberOf = (personChurches  someone churchesData)
+  let personAndChurches =  (someone,memberOf )
+  printfn "%A\n" personAndChurches
 
 
-let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
 
-    let checkMember = (isMember name churchesData)
-    let churchNames = (getChurchNames churchesData)
-    let filteredChurchNames = filterChurchNames churchNames checkMember
-    filteredChurchNames
-   
-
-for name in returnMembers do
-  printfn "%s:\n" name
-  let testLastFunction = personChurches name churchesData
-
-  printfn "%A\n" testLastFunction
