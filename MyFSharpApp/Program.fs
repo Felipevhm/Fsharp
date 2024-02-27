@@ -1,4 +1,5 @@
-﻿type Church =
+﻿
+type Church =
     { Name : string
       Denomination : string
       Address : string
@@ -41,21 +42,26 @@ let churchesData =
 
     ]
 
-let peopleSearch (person: string) (churchesData:(Church * ChurchStatus) list)  =
+let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
+    churchesData
+    |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
+    |> Set.ofList
+    |> Set.toList
+
+let allPeople = (peopleSearch churchesData)
+
+let personChurches (person: string) (churchesData:(Church * ChurchStatus) list)  =
     List.map (fun (church, _ ) -> (church.Name, (Array.toList church.CommunityMembers))) churchesData
     |> List.groupBy (fun (_, members) -> members |> List.contains person)
-    
-    // |> Set.ofList
-    // |> Set.toList
+    |> List.filter (fun (trueTuple, _) -> trueTuple)
+    |> List.map snd
+    |> List.collect (List.map fst) 
 
-let returnMembers = (peopleSearch  "Maria" churchesData)
+// for person in returnMembers do
+for someone in allPeople do
+  let memberOf = (personChurches  someone churchesData)
+  let personAndChurches =  (someone,memberOf )
+  printfn "%A\n" personAndChurches
 
-let testFilter = returnMembers|> List.filter (fun (trueTuple, _) -> trueTuple)
-let testMap = testFilter |> List.map snd
 
-let listParser = List.collect (List.map fst) testMap
 
-printfn "After List.groupBy:\n\n %A\n" returnMembers
-printfn "After List.filter:\n\n%A\n" testFilter
-printfn "After List.Map:\n\n%A\n" testMap
-printfn "After Parsing:\n\n%A\n" listParser
