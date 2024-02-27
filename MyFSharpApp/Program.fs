@@ -52,35 +52,35 @@ let returnMembers = (peopleSearch churchesData)
 printfn "%A\n" returnMembers
 
 
-// ----
-//1)
-let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool list  =
-    churchesData
-    |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
+// // ----
+// //1)
+// let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool list  =
+//     churchesData
+//     |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
 
-//2)
-let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
-    churchesData
-    |> List.map (fun (church, status) -> church.Name)
-
-
-//3)
-let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
-    List.zip churchNames checkMember
-    |> List.filter snd
-    |> List.map fst
+// //2)
+// let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
+//     churchesData
+//     |> List.map (fun (church, status) -> church.Name)
 
 
-let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
+// //3)
+// let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
+//     List.zip churchNames checkMember
+//     |> List.filter snd
+//     |> List.map fst
 
-    let checkMember = (isMember name churchesData)
-    let churchNames = (getChurchNames churchesData)
-    let filteredChurchNames = filterChurchNames churchNames checkMember
-    filteredChurchNames
+
+// let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
+
+//     let checkMember = (isMember name churchesData)
+//     let churchNames = (getChurchNames churchesData)
+//     let filteredChurchNames = filterChurchNames churchNames checkMember
+//     filteredChurchNames
    
 
-for name in returnMembers do
-  printfn "%s:\n" name
-  let testLastFunction = personChurches name churchesData
+// for name in returnMembers do
+//   printfn "%s:\n" name
+//   let testLastFunction = personChurches name churchesData
 
-  printfn "%A\n" testLastFunction
+//   printfn "%A\n" testLastFunction
