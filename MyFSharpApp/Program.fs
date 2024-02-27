@@ -41,46 +41,21 @@ let churchesData =
 
     ]
 
-let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
-    churchesData
-    |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
-    |> Set.ofList
-    |> Set.toList
+let peopleSearch (person: string) (churchesData:(Church * ChurchStatus) list)  =
+    List.map (fun (church, _ ) -> (church.Name, (Array.toList church.CommunityMembers))) churchesData
+    |> List.groupBy (fun (_, members) -> members |> List.contains person)
+    
+    // |> Set.ofList
+    // |> Set.toList
 
-let returnMembers = (peopleSearch churchesData)
+let returnMembers = (peopleSearch  "Maria" churchesData)
 
-printfn "%A\n" returnMembers
+let testFilter = returnMembers|> List.filter (fun (trueTuple, _) -> trueTuple)
+let testMap = testFilter |> List.map snd
 
+let listParser = List.collect (List.map fst) testMap
 
-// // ----
-// //1)
-// let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool list  =
-//     churchesData
-//     |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
-
-// //2)
-// let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
-//     churchesData
-//     |> List.map (fun (church, status) -> church.Name)
-
-
-// //3)
-// let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
-//     List.zip churchNames checkMember
-//     |> List.filter snd
-//     |> List.map fst
-
-
-// let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
-
-//     let checkMember = (isMember name churchesData)
-//     let churchNames = (getChurchNames churchesData)
-//     let filteredChurchNames = filterChurchNames churchNames checkMember
-//     filteredChurchNames
-   
-
-// for name in returnMembers do
-//   printfn "%s:\n" name
-//   let testLastFunction = personChurches name churchesData
-
-//   printfn "%A\n" testLastFunction
+printfn "After List.groupBy:\n\n %A\n" returnMembers
+printfn "After List.filter:\n\n%A\n" testFilter
+printfn "After List.Map:\n\n%A\n" testMap
+printfn "After Parsing:\n\n%A\n" listParser
