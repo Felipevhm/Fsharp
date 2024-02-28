@@ -42,26 +42,15 @@ let churchesData =
 
     ]
 
-let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
+let personChurches (churchesData:(Church * ChurchStatus) list)  =
     churchesData
-    |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
-    |> Set.ofList
-    |> Set.toList
-
-let allPeople = (peopleSearch churchesData)
-
-let personChurches (person: string) (churchesData:(Church * ChurchStatus) list)  =
-    List.map (fun (church, _ ) -> (church.Name, (Array.toList church.CommunityMembers))) churchesData
-    |> List.groupBy (fun (_, members) -> members |> List.contains person)
-    |> List.filter (fun (trueTuple, _) -> trueTuple)
-    |> List.map snd
-    |> List.collect (List.map fst) 
-
-// for person in returnMembers do
-for someone in allPeople do
-  let memberOf = (personChurches  someone churchesData)
-  let personAndChurches =  (someone,memberOf )
-  printfn "%A\n" personAndChurches
+    |> List.map fst
+    |> List.map (fun {Name = church; CommunityMembers = members} -> (church, List.ofArray members))
+    |> List.collect (fun (church, members) -> List.map (fun name -> (church, name)) members)
+    |> List.groupBy (fun (church, name) -> name)
+    |> List.iter (fun (name, churches) ->
+                  printfn "%s" name
+                  List.iter (fun (church, _) -> printfn "\t%s" church) churches)
 
 
-
+printfn "%A" (personChurches churchesData)
