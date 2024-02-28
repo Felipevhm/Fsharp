@@ -45,12 +45,12 @@ let churchesData =
 let personChurches (churchesData:(Church * ChurchStatus) list)  =
     churchesData
     |> List.map fst
-    |> List.map (fun {Name = church; CommunityMembers = members} -> (church, List.ofArray members))
-    |> List.collect (fun (church, members) -> List.map (fun name -> (church, name)) members)
+    |> List.collect (fun {Name = church; CommunityMembers = members} ->
+                    (List.ofArray members)
+                    |> List.map (fun name -> (church, name)))
     |> List.groupBy (fun (church, name) -> name)
     |> List.iter (fun (name, churches) ->
                   printfn "%s" name
                   List.iter (fun (church, _) -> printfn "\t%s" church) churches)
-
 
 printfn "%A" (personChurches churchesData)
