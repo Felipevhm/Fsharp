@@ -1,4 +1,5 @@
-﻿type Church =
+﻿
+type Church =
     { Name : string
       Denomination : string
       Address : string
@@ -41,46 +42,42 @@ let churchesData =
 
     ]
 
-let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
+
+let personChurches (churchesData:(Church * ChurchStatus) list)  =
     churchesData
-    |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
-    |> Set.ofList
-    |> Set.toList
-
-let returnMembers = (peopleSearch churchesData)
-
-printfn "%A\n" returnMembers
-
-
-// ----
-//1)
-let isMember (name: string) (churchesData:(Church * ChurchStatus) list): bool list  =
-    churchesData
-    |> List.map (fun (church, status) -> Array.contains name church.CommunityMembers)
-
-//2)
-let getChurchNames (churchesData:(Church * ChurchStatus) list): string list  =
-    churchesData
-    |> List.map (fun (church, status) -> church.Name)
-
-
-//3)
-let filterChurchNames (churchNames: string list) (checkMember: bool list): string list =
-    List.zip churchNames checkMember
-    |> List.filter snd
     |> List.map fst
-
-
-let personChurches (name: string) (churchesData:(Church * ChurchStatus) list) = 
-
-    let checkMember = (isMember name churchesData)
-    let churchNames = (getChurchNames churchesData)
-    let filteredChurchNames = filterChurchNames churchNames checkMember
-    filteredChurchNames
+    |> List.fold (fun acc {Name = igreja; CommunityMembers = members} -> (igreja, (List.ofArray members)) :: acc) []
+    |> List.map (fun (igreja,nomes) -> [ nomes ; [igreja] ] )
    
+   // Output até aqui: 
 
-for name in returnMembers do
-  printfn "%s:\n" name
-  let testLastFunction = personChurches name churchesData
+   (*
+      [[["Maria"; "Erica"]; ["Igreja da Trindade"]];
+      [["Juarez"; "Erica"; "Daniel"]; ["Moteiro Santo Ivo"]];
+      [["Daniel"; "Maria"]; ["Catedral Metropolitana de Florianópolis"]]]
+   *)
+   
+   
+   
+    // |> List.map (fun  (f::[[s]])-> for x in f do ( [x;s]) )
+    // |> List.collect(fun first  :: second ->)
+    //  |> List.collect (fun )
+                    
 
-  printfn "%A\n" testLastFunction
+
+
+// let personChurches (churchesData:(Church * ChurchStatus) list)  =
+//     churchesData
+//     |> List.map fst
+//     |> List.fold  (fun {Name = igreja; CommunityMembers = members} -> (Nome,(List.ofArray members)) )
+     // |> List.collect (fun {Name = church; CommunityMembers = members} -> 
+    //       (List.ofArray members) |> List.map (fun name -> (church, name)
+    //       )
+    //                 )
+
+    // |> List.groupBy (fun (church, name) -> name)
+    // |> List.iter (fun (name, churches) ->
+    //               printfn "%s" name
+    //               List.iter (fun (church, _) -> printfn "\t%s" church) churches)
+
+printfn "%A" (personChurches churchesData)
