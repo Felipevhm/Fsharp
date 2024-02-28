@@ -1,51 +1,67 @@
-// d - crie um exemplo onde você representa dados sobre algumas igrejas 
-// de Florianópolis utilizando os tipos algébricos do F#. 
 
-// Utilize tanto records como discriminated unions. 
-
-// Escreva uma função que processa uma lista que contém instâncias dos 
-// tipos algébricos que você definiu.
-
-// Definição dos tipos algébricos
-
-// Record para representar os detalhes de uma igreja
 type Church =
     { Name : string
       Denomination : string
       Address : string
-      Capacity : int }
+      Capacity : int 
+      CommunityMembers : string []
+      }
 
-// Discriminated union para representar o status de uma igreja
 type ChurchStatus =
     | Open
     | Closed
 
-// Exemplo de dados sobre algumas igrejas de Florianópolis
 let churchesData =
-    [ { Name = "Catedral Metropolitana de Florianópolis"
+    [ 
+      { Name = "Catedral Metropolitana de Florianópolis"
         Denomination = "Católica"
         Address = "Praça XV de Novembro, Centro"
-        Capacity = 500 }
+        Capacity = 500 
+        CommunityMembers = [|"Daniel";"Maria"|]
+        }
         ,
       Open;
 
-      { Name = "Igreja Presbiteriana Independente"
-        Denomination = "Presbiteriana"
-        Address = "Rua Esteves Júnior, Centro"
-        Capacity = 300 }
+      { Name = "Moteiro Santo Ivo"
+        Denomination = "Católica"
+        Address = "R. Delminda Silveira, Agronômica"
+        Capacity = 80 
+        CommunityMembers = [|"Juarez";"Erica";"Daniel"|]
+        }
         ,
       Open;
 
-      { Name = "Igreja Mundial do Poder de Deus"
-        Denomination = "Neopentecostal"
-        Address = "Rua Almirante Lamego, Estreito"
-        Capacity = 200 },
-        
-      Closed
+      { Name = "Igreja da Trindade"
+        Denomination = "Católica"
+        Address = "Pça. Santos Dumont, Trindade"
+        Capacity = 600 
+        CommunityMembers = [|"Maria";"Erica"|]
+        }
+        ,
+      Open;
+
     ]
 
-// Imprimir as informações usando %A
+let peopleSearch (churchesData:(Church * ChurchStatus) list): string list  =
+    churchesData
+    |> List.collect (fun (church, status) -> Array.toList church.CommunityMembers)
+    |> Set.ofList
+    |> Set.toList
 
-for a in churchesData do
-        printfn "%A\n" a
+let allPeople = (peopleSearch churchesData)
+
+let personChurches (person: string) (churchesData:(Church * ChurchStatus) list)  =
+    List.map (fun (church, _ ) -> (church.Name, (Array.toList church.CommunityMembers))) churchesData
+    |> List.groupBy (fun (_, members) -> members |> List.contains person)
+    |> List.filter (fun (trueTuple, _) -> trueTuple)
+    |> List.map snd
+    |> List.collect (List.map fst) 
+
+// for person in returnMembers do
+for someone in allPeople do
+  let memberOf = (personChurches  someone churchesData)
+  let personAndChurches =  (someone,memberOf )
+  printfn "%A\n" personAndChurches
+
+
 
