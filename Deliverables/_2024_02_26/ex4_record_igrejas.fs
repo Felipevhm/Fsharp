@@ -53,39 +53,5 @@ let personChurches (churchesData:(Church * ChurchStatus) list)  =
         let first = List.head item
         let second = List.head (List.tail item)
         [for x in first do yield [x,second]])
-    printfn "%A" (personChurches churchesData)
 
-    
-    // |> List.collect( [first]  :: [second] = for x in first do (x,second))
-   // Output até aqui: 
-
-   (*
-      [[["Maria"; "Erica"]; ["Igreja da Trindade"]];
-      [["Juarez"; "Erica"; "Daniel"]; ["Moteiro Santo Ivo"]];
-      [["Daniel"; "Maria"]; ["Catedral Metropolitana de Florianópolis"]]]
-   *)
-   
-   
-   
-    // |> List.map (fun  (f::[[s]])-> for x in f do ( [x;s]) )
-    // |> List.collect(fun first  :: second ->)
-    //  |> List.collect (fun )
-                    
-
-
-
-// let personChurches (churchesData:(Church * ChurchStatus) list)  =
-//     churchesData
-//     |> List.map fst
-//     |> List.fold  (fun {Name = igreja; CommunityMembers = members} -> (Nome,(List.ofArray members)) )
-     // |> List.collect (fun {Name = church; CommunityMembers = members} -> 
-    //       (List.ofArray members) |> List.map (fun name -> (church, name)
-    //       )
-    //                 )
-
-    // |> List.groupBy (fun (church, name) -> name)
-    // |> List.iter (fun (name, churches) ->
-    //               printfn "%s" name
-    //               List.iter (fun (church, _) -> printfn "\t%s" church) churches)
-
-
+printfn "%A" (personChurches churchesData)
