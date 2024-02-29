@@ -7,6 +7,8 @@ let oneFcn oneList =
             let key = cur % 2
             Map.change key 
                 (   fun elementsOfKey -> 
+                        // testing:
+                        // Some [key;cur]
                         match elementsOfKey with
                             | Some currentList -> (Some (cur :: currentList))
                             | None -> Some [cur]
