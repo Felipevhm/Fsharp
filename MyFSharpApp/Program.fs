@@ -58,9 +58,9 @@ let personChurches (churchesData:(Church * ChurchStatus) list)  =
                 acc
                 )
         (Map([]))
-        // |> Map.iter (fun name churches ->
-        //         printfn "%s" name
-        //         List.iter (fun church -> printfn "\t%s" church) churches)
+    |> Map.iter (fun name churches ->
+                printfn "%s" name
+                List.iter (fun church -> printfn "\t%s" church) churches)
 
 printfn "%A" (personChurches churchesData)
 
