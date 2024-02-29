@@ -1,4 +1,4 @@
-﻿// exemplo de fold que produz duas listas na saída, uma para cada resto possível na divisão por dois.
+// exemplo de fold que produz duas listas na saída, uma para cada resto possível na divisão por dois.
 
 let oneList = [1 .. 10] 
 
