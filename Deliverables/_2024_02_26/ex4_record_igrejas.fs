@@ -53,7 +53,7 @@ let personChurches (churchesData:(Church * ChurchStatus) list)  =
         let first = List.head item
         let second = List.head (List.tail item)
         [for x in first do yield [x,second]])
-    
+    printfn "%A" (personChurches churchesData)
 
     
     // |> List.collect( [first]  :: [second] = for x in first do (x,second))
@@ -88,4 +88,4 @@ let personChurches (churchesData:(Church * ChurchStatus) list)  =
     //               printfn "%s" name
     //               List.iter (fun (church, _) -> printfn "\t%s" church) churches)
 
-printfn "%A" (personChurches churchesData)
+

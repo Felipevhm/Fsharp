@@ -1,50 +1,56 @@
-﻿let oneList = [1 .. 5] 
+﻿
+type Church =
+    { Name : string
+      Denomination : string
+      Address : string
+      Capacity : int 
+      CommunityMembers : string []
+      }
 
-let oneFcn oneList =
-    oneList
-    |> List.fold 
-        (fun (acc: Map<int, int list>) cur ->
-            let key = cur % 2
-            Map.change key 
-                (   fun elementsOfKey -> 
-                        // testing:
-                        // Some [key;cur]
-                        match elementsOfKey with
-                            | Some currentList -> (Some (cur :: currentList))
-                            | None -> Some [cur]
-                 )
-                acc) 
-        (Map.empty)
+type ChurchStatus =
+    | Open
+    | Closed
 
-printfn "\n%A" (oneFcn oneList)
+let churchesData =
+    [ 
+      { Name = "Catedral Metropolitana de Florianópolis"
+        Denomination = "Católica"
+        Address = "Praça XV de Novembro, Centro"
+        Capacity = 500 
+        CommunityMembers = [|"Daniel";"Maria"|]
+        }
+        ,
+      Open;
+
+      { Name = "Moteiro Santo Ivo"
+        Denomination = "Católica"
+        Address = "R. Delminda Silveira, Agronômica"
+        Capacity = 80 
+        CommunityMembers = [|"Juarez";"Erica";"Daniel"|]
+        }
+        ,
+      Open;
+
+      { Name = "Igreja da Trindade"
+        Denomination = "Católica"
+        Address = "Pça. Santos Dumont, Trindade"
+        Capacity = 600 
+        CommunityMembers = [|"Maria";"Erica"|]
+        }
+        ,
+      Open;
+
+    ]
 
 
-(*
-cur: 1
-key: 1
-elementsOfKey: None
-
-cur: 2
-key: 0
-elementsOfKey: None
-
-cur: 3
-key: 1
-elementsOfKey: Some [1]
-currentlist: [1]
-cur :: currentList: [3; 1]
-
-cur: 4
-key: 0
-elementsOfKey: Some [2]
-currentlist: [2]
-cur :: currentList: [4; 2]
-
-cur: 5
-key: 1
-elementsOfKey: Some [3; 1]
-currentlist: [3; 1]
-cur :: currentList: [5; 3; 1]
-
-map [(0, [4; 2]); (1, [5; 3; 1])]
-*)
+let personChurches (churchesData:(Church * ChurchStatus) list)  =
+    churchesData
+    |> List.map fst
+    |> List.fold (fun acc {Name = igreja; CommunityMembers = members} -> (igreja, (List.ofArray members)) :: acc) []
+    |> List.map (fun (igreja,nomes) -> [ nomes ; [igreja] ] )
+    
+    |> List.collect (fun item -> 
+        let first = List.head item
+        let second = List.head (List.tail item)
+        [for x in first do yield [x,second]])
+    printfn "%A" (personChurches churchesData)
