@@ -53,4 +53,5 @@ let personChurches (churchesData:(Church * ChurchStatus) list)  =
         let first = List.head item
         let second = List.head (List.tail item)
         [for x in first do yield [x,second]])
-    printfn "%A" (personChurches churchesData)
+
+printfn "%A" (personChurches churchesData)
