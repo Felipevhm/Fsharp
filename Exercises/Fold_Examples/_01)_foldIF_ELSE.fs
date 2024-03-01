@@ -1,42 +1,36 @@
 // exemplo de fold que produz duas listas na saída, uma para cada resto possível na divisão por dois.
 
-let oneList = [1 .. 10] 
+let oneList = [ 1..10 ]
 
 let oneFcn (oneList) =
-    oneList
-    |> List.fold (
-        fun (acc: Map<int, int list>) cur ->
+   oneList
+   |> List.fold
+         (fun (acc: Map<int, int list>) cur ->
             let key = cur % 2
             // printfn "\ncur is: %A" (cur)
             // printfn "acc is: %A" (acc)
 
             if Map.containsKey key acc then
-                let currentList = acc.[key]
-                Map.add key (cur :: currentList) acc
-                // printfn "key é: %A" (key
-                // printfn "currentList é: %A" (currentList)
+               let currentList = acc.[key]
+               Map.add key (cur :: currentList) acc
+            // printfn "key é: %A" (key
+            // printfn "currentList é: %A" (currentList)
             else
-                Map.add key [cur] acc
-                // printfn "else | key:%A cur:%A acc:%A\n" key cur acc
-                
-                           
-        )
-        (Map [])
+               Map.add key [ cur ] acc
+         // printfn "else | key:%A cur:%A acc:%A\n" key cur acc
+
+         )
+         (Map [])
 
 printfn "%A" (oneFcn oneList)
-
-
-
 
 // cur is: 1
 // acc is: map []
 // else | key:1 cur:1 acc:map []
 
-
 // cur is: 2
 // acc is: map [(1, [1])]
 // else | key:0 cur:2 acc:map [(1, [1])]
-
 
 // cur is: 3
 // acc is: map [(0, [2]); (1, [1])]

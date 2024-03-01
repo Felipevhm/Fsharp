@@ -1,20 +1,20 @@
-let oneList = [1 .. 5] 
+let oneList = [ 1..5 ]
 
 let oneFcn oneList =
-    oneList
-    |> List.fold 
-        (fun (acc: Map<int, int list>) cur ->
+   oneList
+   |> List.fold
+         (fun (acc: Map<int, int list>) cur ->
             let key = cur % 2
-            Map.change key 
-                (   function
-                            | Some currentList -> (Some (cur :: currentList))
-                            | None -> Some [cur]
-                 )
-                acc) 
-        (Map.empty)
+
+            Map.change
+               key
+               (function
+               | Some currentList -> (Some(cur :: currentList))
+               | None -> Some [ cur ])
+               acc)
+         (Map.empty)
 
 printfn "\n%A" (oneFcn oneList)
-
 
 (*
 cur: 1

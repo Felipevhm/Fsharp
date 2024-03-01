@@ -1,0 +1,6 @@
+[*.{fs,fsx}]
+indent_size = 3
+fsharp_align_function_signature_to_indentation = true
+fsharp_alternative_long_member_definitions = true
+fsharp_bar_before_discriminated_union_declaration = true
+fsharp_keep_max_number_of_blank_lines = 1
