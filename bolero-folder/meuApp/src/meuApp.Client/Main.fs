@@ -1,4 +1,4 @@
-module HelloWorld.Client.Main
+module meuApp.Client.Main
 
 open System
 open Elmish

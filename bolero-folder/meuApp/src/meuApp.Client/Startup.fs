@@ -1,4 +1,4 @@
-namespace HelloWorld.Client
+namespace meuApp.Client
 
 open Microsoft.AspNetCore.Components.WebAssembly.Hosting
 open Bolero.Remoting.Client

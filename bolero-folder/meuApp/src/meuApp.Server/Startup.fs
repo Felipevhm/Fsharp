@@ -1,4 +1,4 @@
-namespace HelloWorld.Server
+namespace meuApp.Server
 
 open Microsoft.AspNetCore
 open Microsoft.AspNetCore.Authentication.Cookies
@@ -9,7 +9,7 @@ open Microsoft.Extensions.Hosting
 open Bolero
 open Bolero.Remoting.Server
 open Bolero.Server
-open HelloWorld
+open meuApp
 open Bolero.Templating.Server
 
 type Startup() =
@@ -27,7 +27,7 @@ type Startup() =
             .AddBoleroRemoting<BookService>()
             .AddBoleroHost()
 #if DEBUG
-            .AddHotReload(templateDir = __SOURCE_DIRECTORY__ + "/../HelloWorld.Client")
+            .AddHotReload(templateDir = __SOURCE_DIRECTORY__ + "/../meuApp.Client")
 #endif
         |> ignore
 
