@@ -1,3 +1,5 @@
+// solução para o problema das igrejas com fold
+
 
 type Church =
     { Name : string
@@ -46,12 +48,19 @@ let churchesData =
 let personChurches (churchesData:(Church * ChurchStatus) list)  =
     churchesData
     |> List.map fst
-    |> List.fold (fun acc {Name = igreja; CommunityMembers = members} -> (igreja, (List.ofArray members)) :: acc) []
-    |> List.map (fun (igreja,nomes) -> [ nomes ; [igreja] ] )
-    
-    |> List.collect (fun item -> 
-        let first = List.head item
-        let second = List.head (List.tail item)
-        [for x in first do yield [x,second]])
+    |> List.map (fun {Name = church; CommunityMembers = members} -> (church, List.ofArray members))
+    |> List.collect (fun (church, members) ->
+             List.map (fun personName -> (church, personName)) members)
+    |> List.fold (fun (acc: Map<string, string list>) ((igreja, pessoa)) -> 
+            Map.change pessoa (function
+                | Some currentList -> Some (igreja :: currentList)
+                | None -> Some [igreja])
+                acc
+                )
+        (Map([]))
+    |> Map.iter (fun name churches ->
+                printfn "%s" name
+                List.iter (fun church -> printfn "\t%s" church) churches)
 
 printfn "%A" (personChurches churchesData)
+
