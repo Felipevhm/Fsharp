@@ -194,11 +194,13 @@ let menuItem (model: Model) (page: Page) (text: string) =
 
 let view model dispatch =
     Main()
-        .Menu(concat {
+        .Menu(
+            //concat {
             menuItem model Home "Home"
-            menuItem model Counter "Counter"
-            menuItem model Data "Download data"
-        })
+        //    menuItem model Counter "Counter"
+        //    menuItem model Data "Download data"
+        //}
+        )
         .Body(
             cond model.page <| function
             | Home -> homePage model dispatch
