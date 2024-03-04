@@ -9,6 +9,6 @@ dotnet new -i Bolero.Templates
 
 dotnet new bolero-app -o HelloWorld
 
---- TO RUN ---
+--- TO RUN ----
 cd meuApp
-dotnet run --project src/meuApp.Server
+dotnet run --project src/meuApp.Server 
