@@ -7,7 +7,8 @@ dotnet new -i Bolero.Templates
 --- TO CREATE THE BOLERO APP ---
  //   Then, you can create a new Bolero application:
 
-dotnet new bolero-app -o HelloWorld
+dotnet new bolero-app -o CounterApp
+
 
 --- TO RUN ----
 cd meuApp
