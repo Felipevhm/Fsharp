@@ -3,7 +3,7 @@
         match lista with
         | [] -> acc
         | cabeca :: cauda -> auxiliar (cabeca :: acc) cauda
-    auxiliar [] lista
+    auxiliar [] lista //
 
 // Exemplo de uso
 let listaOriginal = [1; 2; 3; 4; 5]
