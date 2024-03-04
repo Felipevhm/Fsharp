@@ -10,5 +10,5 @@ dotnet new -i Bolero.Templates
 dotnet new bolero-app -o HelloWorld
 
 --- TO RUN ---
-cd meuApp
-dotnet run --project src/meuApp.Server
+cd Counter
+dotnet run --project src/Counter.Server
