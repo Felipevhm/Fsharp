@@ -29,7 +29,7 @@ module Views =
     let layout (content: XmlNode list) =
         html [] [
             head [] [
-                title []  [ encodedText "giraffe_server" ]
+                title []  [ encodedText " 🦒 Servidor Giraffe 🦒" ]
                 link [ _rel  "stylesheet"
                        _type "text/css"
                        _href "/main.css" ]
@@ -44,6 +44,9 @@ module Views =
         [
             partial()
             p [] [ encodedText model.Text ]
+            //_style "background: green; color: white"
+            button [(_style "background: green;") 
+                    (_class "text-white")] [str "girafinhas button"]
         ] |> layout
 
 // ---------------------------------
