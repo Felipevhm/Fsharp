@@ -1,0 +1,14 @@
+--- TO CREATE TEMPLATES ---
+
+//    The easiest way to get started is to use Bolero's dotnet template. To install it, run the following command:
+
+dotnet new -i Bolero.Templates
+
+--- TO CREATE THE BOLERO APP ---
+ //   Then, you can create a new Bolero application:
+
+dotnet new bolero-app -o HelloWorld
+
+--- TO RUN ---
+cd meuApp
+dotnet run --project src/meuApp.Server
