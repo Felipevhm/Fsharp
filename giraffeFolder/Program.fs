@@ -53,14 +53,26 @@ module Views =
 let indexHandler (name : string) =
     let greetings = sprintf "Hello %s, from Giraffe!" name
     let model     = { Text = greetings }
-    let view      = Views.index model
-    htmlView view
+    json model
+
+let random = Random() // Move this line outside the function
+
+let randomElement(random:Random) =
+    
+    let storedList = ["Julius Caesar"; "Apple"; "Japan"; "Elephant"; "Hercules"; "Wave"; "Nero"; "Banana"; "China"; "Lion"]
+
+    let index = random.Next(storedList.Length)   
+    let name = storedList.[index]
+    let fullMessage = sprintf "Random %i element: %s" index name
+    let model     = { Text = fullMessage }
+    json model
 
 let webApp =
     choose [
         GET >=>
             choose [
                 route "/" >=> indexHandler "world"
+                route "/next-string" >=> randomElement(random)
                 routef "/hello/%s" indexHandler
             ]
         setStatusCode 404 >=> text "Not Found" ]
