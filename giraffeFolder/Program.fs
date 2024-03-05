@@ -59,7 +59,7 @@ let random = Random() // Move this line outside the function
 
 let randomElement(random:Random) =
     
-    let storedList = ["Julius Caesar"; "Apple"; "Japan"; "Elephant"; "Hercules"; "Wave"; "Nero"; "Banana"; "China"; "Lion"]
+    let storedList = [|"Julius Caesar"; "Apple"; "Japan"; "Elephant"; "Hercules"; "Wave"; "Nero"; "Banana"; "China"; "Lion"|]
 
     let index = random.Next(storedList.Length)   
     let name = storedList.[index]
