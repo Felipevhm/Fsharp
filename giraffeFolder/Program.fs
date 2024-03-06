@@ -9,6 +9,7 @@ open Microsoft.Extensions.Hosting
 open Microsoft.Extensions.Logging
 open Microsoft.Extensions.DependencyInjection
 open Giraffe
+open Microsoft.AspNetCore.Http
 
 // ---------------------------------
 // Models
@@ -50,10 +51,11 @@ module Views =
 // Web app
 // ---------------------------------
 
-let indexHandler (name : string) =
-    let greetings = sprintf "Hello %s, from Giraffe!" name
-    let model     = { Text = greetings }
-    json model
+let indexHandler (name : string) : HttpHandler = // added
+    fun (_ : HttpFunc) (ctx : HttpContext) -> // added
+        let greetings = sprintf "Hello %s, from Giraffe!" name
+        let model     = { Text = greetings }
+        json model
 
 let random = Random() // Move this line outside the function
 
