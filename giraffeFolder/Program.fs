@@ -1,139 +1,78 @@
-module giraffeFolder.App
-
-open System
-open System.IO
+﻿open System
+open Microsoft.AspNetCore
 open Microsoft.AspNetCore.Builder
-open Microsoft.AspNetCore.Cors.Infrastructure
 open Microsoft.AspNetCore.Hosting
-open Microsoft.Extensions.Hosting
-open Microsoft.Extensions.Logging
-open Microsoft.Extensions.DependencyInjection
-open Giraffe
 open Microsoft.AspNetCore.Http
+open Microsoft.Extensions.DependencyInjection
+open Microsoft.Extensions.Hosting
+open Giraffe
+open Giraffe.EndpointRouting
 
-// ---------------------------------
-// Models
-// ---------------------------------
+let handler1 : HttpHandler =
+    fun (_ : HttpFunc) (ctx : HttpContext) ->
+        ctx.WriteTextAsync "Hello World"
 
-type Message =
-    {
-        Text : string
-    }
+let handler2 (firstName : string, age : int) : HttpHandler =
+    fun (_ : HttpFunc) (ctx : HttpContext) ->
+        sprintf "Hello %s, you are %i years old." firstName age
+        |> ctx.WriteTextAsync
 
-// ---------------------------------
-// Views
-// ---------------------------------
+let handler3 (a : string, b : string, c : string, d : int) : HttpHandler =
+    fun (_ : HttpFunc) (ctx : HttpContext) ->
+        sprintf "Hello %s %s %s %i" a b c d
+        |> ctx.WriteTextAsync
 
-module Views =
-    open Giraffe.ViewEngine
-
-    let layout (content: XmlNode list) =
-        html [] [
-            head [] [
-                title []  [ encodedText "giraffeFolder" ]
-                link [ _rel  "stylesheet"
-                       _type "text/css"
-                       _href "/main.css" ]
+let endpoints =
+    [
+        subRoute "/foo" [
+            GET [
+                route "/bar" (text "Aloha!")
             ]
-            body [] content
         ]
+        GET [
+            route  "/" (text "Hello World")
+            routef "/%s/%i" handler2
+            routef "/%s/%s/%s/%i" handler3
+        ]
+        GET_HEAD [
+            route "/foo" (text "Bar")
+            route "/x"   (text "y")
+            route "/abc" (text "def")
+        ]
+        // Not specifying a http verb means it will listen to all verbs
+        subRoute "/sub" [
+            route "/test" handler1
+        ]
+    ]
 
-    let partial () =
-        h1 [] [ encodedText "giraffeFolder" ]
+let notFoundHandler =
+    "Not Found"
+    |> text
+    |> RequestErrors.notFound
 
-    let index (model : Message) =
-        [
-            partial()
-            p [] [ encodedText model.Text ]
-        ] |> layout
-
-// ---------------------------------
-// Web app
-// ---------------------------------
-
-let indexHandler (name : string) : HttpHandler = // added
-    fun (_ : HttpFunc) (ctx : HttpContext) -> // added
-        let greetings = sprintf "Hello %s, from Giraffe!" name
-        let model     = { Text = greetings }
-        json model
-
-let random = Random() // Move this line outside the function
-
-let randomElement(random:Random) =
-    
-    let storedList = [|"Julius Caesar"; "Apple"; "Japan"; "Elephant"; "Hercules"; "Wave"; "Nero"; "Banana"; "China"; "Lion"|]
-
-    let index = random.Next(storedList.Length)   
-    let name = storedList.[index]
-    let fullMessage = sprintf "Random %i element: %s" index name
-    let model     = { Text = fullMessage }
-    json model
-
-let webApp =
-    choose [
-        GET >=>
-            choose [
-                route "/" >=> indexHandler "world"
-                route "/next-string" >=> warbler (fun _ ->  (randomElement(random)))
-                routef "/hello/%s" indexHandler
-            ]
-        setStatusCode 404 >=> text "Not Found" ]
-
-// ---------------------------------
-// Error handler
-// ---------------------------------
-
-let errorHandler (ex : Exception) (logger : ILogger) =
-    logger.LogError(ex, "An unhandled exception has occurred while executing the request.")
-    clearResponse >=> setStatusCode 500 >=> text ex.Message
-
-// ---------------------------------
-// Config and Main
-// ---------------------------------
-
-let configureCors (builder : CorsPolicyBuilder) =
-    builder
-        .WithOrigins(
-            "http://localhost:5000",
-            "https://localhost:5001")
-       .AllowAnyMethod()
-       .AllowAnyHeader()
-       |> ignore
-
-let configureApp (app : IApplicationBuilder) =
-    let env = app.ApplicationServices.GetService<IWebHostEnvironment>()
-    (match env.IsDevelopment() with
-    | true  ->
-        app.UseDeveloperExceptionPage()
-    | false ->
-        app .UseGiraffeErrorHandler(errorHandler)
-            .UseHttpsRedirection())
-        .UseCors(configureCors)
-        .UseStaticFiles()
-        .UseGiraffe(webApp)
+let configureApp (appBuilder : IApplicationBuilder) =
+    appBuilder
+        .UseRouting()
+        .UseGiraffe(endpoints)
+        .UseGiraffe(notFoundHandler)
 
 let configureServices (services : IServiceCollection) =
-    services.AddCors()    |> ignore
-    services.AddGiraffe() |> ignore
-
-let configureLogging (builder : ILoggingBuilder) =
-    builder.AddConsole()
-           .AddDebug() |> ignore
+    services
+        .AddRouting()
+        .AddGiraffe()
+    |> ignore
 
 [<EntryPoint>]
 let main args =
-    let contentRoot = Directory.GetCurrentDirectory()
-    let webRoot     = Path.Combine(contentRoot, "WebRoot")
-    Host.CreateDefaultBuilder(args)
-        .ConfigureWebHostDefaults(
-            fun webHostBuilder ->
-                webHostBuilder
-                    .UseContentRoot(contentRoot)
-                    .UseWebRoot(webRoot)
-                    .Configure(Action<IApplicationBuilder> configureApp)
-                    .ConfigureServices(configureServices)
-                    .ConfigureLogging(configureLogging)
-                    |> ignore)
-        .Build()
-        .Run()
+    let builder = WebApplication.CreateBuilder(args)
+    configureServices builder.Services
+
+    let app = builder.Build()
+
+    if app.Environment.IsDevelopment() then
+        app.UseDeveloperExceptionPage() |> ignore
+    
+    configureApp app
+    app.Run()
+
     0
