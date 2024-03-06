@@ -8,40 +8,39 @@ open Microsoft.Extensions.Hosting
 open Giraffe
 open Giraffe.EndpointRouting
 
-let handler1 : HttpHandler =
-    fun (_ : HttpFunc) (ctx : HttpContext) ->
-        ctx.WriteTextAsync "Hello World"
+// ---------------------------------
+// Models
+// ---------------------------------
 
-let handler2 (firstName : string, age : int) : HttpHandler =
-    fun (_ : HttpFunc) (ctx : HttpContext) ->
-        sprintf "Hello %s, you are %i years old." firstName age
-        |> ctx.WriteTextAsync
+type Message =
+    {
+        Text : string
+    }
+// ---------------------------------
+let random = Random() // Move this line outside the function
 
-let handler3 (a : string, b : string, c : string, d : int) : HttpHandler =
-    fun (_ : HttpFunc) (ctx : HttpContext) ->
-        sprintf "Hello %s %s %s %i" a b c d
-        |> ctx.WriteTextAsync
+let indexHandler (name : string) (next: HttpFunc) (ctx: HttpContext) : HttpFuncResult =
+
+        let greetings = sprintf "Hello big %s, from Giraffe!" name
+        let model     = { Text = greetings }
+
+        json model next ctx
+
+let randomElement(random:Random) (next: HttpFunc) (ctx: HttpContext) : HttpFuncResult=
+    
+    let storedList = [|"Julius Caesar"; "Apple"; "Japan"; "Elephant"; "Hercules"; "Wave"; "Nero"; "Banana"; "China"; "Lion"|]
+
+    let index = random.Next(storedList.Length)   
+    let name = storedList.[index]
+    let fullMessage = sprintf "Random %i element: %s" index name
+    let model     = { Text = fullMessage }
+    json model next ctx
 
 let endpoints =
     [
-        subRoute "/foo" [
-            GET [
-                route "/bar" (text "Aloha!")
-            ]
-        ]
         GET [
-            route  "/" (text "Hello World")
-            routef "/%s/%i" handler2
-            routef "/%s/%s/%s/%i" handler3
-        ]
-        GET_HEAD [
-            route "/foo" (text "Bar")
-            route "/x"   (text "y")
-            route "/abc" (text "def")
-        ]
-        // Not specifying a http verb means it will listen to all verbs
-        subRoute "/sub" [
-            route "/test" handler1
+            route "/" (indexHandler "root")
+            route "/next-string" (randomElement random)
         ]
     ]
 
