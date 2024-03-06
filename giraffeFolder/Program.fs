@@ -40,7 +40,7 @@ let endpoints =
     [
         GET [
             route "/" (indexHandler "root")
-            route "/next-string" (warbler (fun _ ->  (randomElement(random))))
+            route "/next-string" (randomElement random)
         ]
     ]
 
