@@ -51,12 +51,18 @@ type Message =
     | Error of exn
     | ClearError
 
+    | NewIncrement
+    | SetNewCounter
+
     // |Newtext of string 
 
 let update (http: HttpClient) message model =
     match message with
     | SetPage page ->
         { model with page = page }, Cmd.none
+
+    | NewIncrement ->
+        { model with counter = model.counter + 1 }, Cmd.none
 
     | Increment ->
         { model with counter = model.counter + 1 }, Cmd.none
