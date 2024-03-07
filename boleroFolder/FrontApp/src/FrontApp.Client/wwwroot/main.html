@@ -1,18 +1,4 @@
-<div class="columns">
-  <!-- <aside class="column sidebar is-narrow">
-    <section class="section">
-      <nav class="menu">
-        <ul class="menu-list">
-          ${Menu}
-          <template id="MenuItem">
-            <li><a class="${Active}" href="${Url}">${Text}</a></li>
-          </template>
-        </ul>
-      </nav>
-    </section>
-  </aside> -->
-  <div class="column" style="background-color: blueviolet;">
-    <section class="section">
+<div class="container">
       ${Body}
 
       <div id="notification-area">
@@ -20,49 +6,15 @@
       </div>
 
       <template id="Home" >
+        <div class="home-wrapper">
+            <h1 class="title" style="color: rgb(0, 0, 0);">Some Elmish Study page</h1>
+    
+            <button>Button A</button>
+            <button>Button B</button>
+            <button>Button C</button>
 
-        <div style="display: flex; flex-direction: column; height: 100vh; align-items: center; gap: 30px;">
-          <h1 class="title" style="color: chartreuse;">Some Elmish Study page</h1>
-          <img src="https://cdn.pixabay.com/photo/2020/01/23/17/37/monkey-4788331_640.jpg" alt="" 
-                    style=" width: 400px; height: 300px; border-radius: 8px;">
-          <button>Hello there! I'm a button!</button>
+          </template>
         </div>
-        </template>
-
-      <!-- <template id="Counter">
-        <h1 class="title">A Giant counter</h1>
-        <p>
-          <button onclick="${Decrement}" class="button">-</button>
-          <input type="number" id="counter" class="input" bind="${Value}">
-          <button onclick="${Increment}" class="button">Generate</button>
-        </p>
-        <p>
-          The counter's value is: ${Value}
-        </p>
-      </template>
-
-      <template id="Data">
-        <h1 class="title">
-          Download data
-          <button class="button" onclick="${Reload}">Reload</button>
-        </h1>
-        <table class="table is-fullwidth">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Author</th>
-              <th>Published</th>
-              <th>ISBN</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${Rows}
-            <template id="EmptyData">
-              <tr><td colspan="4">Downloading book list...</td></tr>
-            </template>
-          </tbody>
-        </table>
-      </template> -->
 
       <template id="ErrorNotification">
         <div class="notification is-warning">
@@ -70,7 +22,5 @@
           ${Text}
         </div>
       </template>
-
-    </section>
-  </div>
+    
 </div>

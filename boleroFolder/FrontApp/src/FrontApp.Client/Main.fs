@@ -14,7 +14,7 @@ type Page =
     | [<EndPoint "/counter">] Counter
     | [<EndPoint "/data">] Data
 
-/// The Elmish application's model.
+/// The Elmish application's model.//
 type Model =
     {
         page: Page
@@ -40,7 +40,7 @@ let initModel =
     }
 
 
-/// The Elmish application's update messages.
+/// The Elmish application's update messages. m
 type Message =
     | SetPage of Page
     | Increment
@@ -51,7 +51,7 @@ type Message =
     | Error of exn
     | ClearError
 
-    |Newtext of string
+    // |Newtext of string 
 
 let update (http: HttpClient) message model =
     match message with
@@ -83,7 +83,7 @@ let router = Router.infer SetPage (fun model -> model.page)
 type Main = Template<"wwwroot/main.html">
 
 let homePage model dispatch =
-    Main.Home().Elt() //
+    Main.Home().Elt() 
 
 // let counterPage model dispatch =
 //     Main.Counter()
@@ -117,9 +117,9 @@ let homePage model dispatch =
 //         .Elt()
 
 let view model dispatch =
-    Main()
+    Main() 
         // .Menu(concat {
-        //     menuItem model Home "Home"
+        //     menuItem model Home "Home" 
         //     menuItem model Counter "Counter"
         //     menuItem model Data "Download data" 
         // })
@@ -138,7 +138,7 @@ let view model dispatch =
                     .Hide(fun _ -> dispatch ClearError)
                     .Elt()
         )
-        .Elt()
+        .Elt() //
 
 type MyApp() =
     inherit ProgramComponent<Model, Message>()
