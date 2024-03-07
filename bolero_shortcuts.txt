@@ -15,6 +15,7 @@ dotnet new bolero-app -o FrontApp --server=false
 cd FrontApp
 dotnet run --project src/FrontApp.Client
 
+dotnet watch --project src/FrontApp.Client
 
 
 
