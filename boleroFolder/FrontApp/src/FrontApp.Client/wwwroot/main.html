@@ -1,5 +1,5 @@
 <div class="columns">
-  <aside class="column sidebar is-narrow">
+  <!-- <aside class="column sidebar is-narrow">
     <section class="section">
       <nav class="menu">
         <ul class="menu-list">
@@ -10,8 +10,8 @@
         </ul>
       </nav>
     </section>
-  </aside>
-  <div class="column">
+  </aside> -->
+  <div class="column" style="background-color: blueviolet;">
     <section class="section">
       ${Body}
 
@@ -19,12 +19,17 @@
         <div>${Error}</div>
       </div>
 
-      <template id="Home">
-          <h1 class="title">Some Study page</h1>
-          <button>Hello there! I'm a button!</button>
-      </template>
+      <template id="Home" >
 
-      <template id="Counter">
+        <div style="display: flex; flex-direction: column; height: 100vh; align-items: center; gap: 30px;">
+          <h1 class="title" style="color: chartreuse;">Some Elmish Study page</h1>
+          <img src="https://cdn.pixabay.com/photo/2020/01/23/17/37/monkey-4788331_640.jpg" alt="" 
+                    style=" width: 400px; height: 300px; border-radius: 8px;">
+          <button>Hello there! I'm a button!</button>
+        </div>
+        </template>
+
+      <!-- <template id="Counter">
         <h1 class="title">A Giant counter</h1>
         <p>
           <button onclick="${Decrement}" class="button">-</button>
@@ -57,7 +62,7 @@
             </template>
           </tbody>
         </table>
-      </template>
+      </template> -->
 
       <template id="ErrorNotification">
         <div class="notification is-warning">
