@@ -51,6 +51,8 @@ type Message =
     | Error of exn
     | ClearError
 
+    |Newtext of string
+
 let update (http: HttpClient) message model =
     match message with
     | SetPage page ->
@@ -119,14 +121,13 @@ let view model dispatch =
         .Menu(concat {
             menuItem model Home "Home"
             menuItem model Counter "Counter"
-            menuItem model Data "Download data"
+            menuItem model Data "Download data" 
         })
         .Body(
             cond model.page <| function
             | Home -> homePage model dispatch
             | Counter -> counterPage model dispatch
-            | Data ->
-                dataPage model dispatch
+            | Data -> dataPage model dispatch
         )
         .Error(
             cond model.error <| function
