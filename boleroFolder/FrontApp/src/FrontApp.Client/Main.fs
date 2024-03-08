@@ -128,15 +128,15 @@ let view model dispatch =
             // | Data ->
             //     dataPage model dispatch
         )
-        .Error( 
-            cond model.error <| function
-            | None -> empty()
-            | Some err ->
-                Main.ErrorNotification()
-                    .Text(err)
-                    .Hide(fun _ -> dispatch ClearError)
-                    .Elt()
-        )
+        // .Error( //
+        //     cond model.error <| function
+        //     | None -> empty()
+        //     | Some err ->
+        //         Main.ErrorNotification()
+        //             .Text(err)
+        //             .Hide(fun _ -> dispatch ClearError)
+        //             .Elt()
+        // )
         .Elt()
 
 type MyApp() =
