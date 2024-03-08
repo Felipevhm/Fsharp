@@ -15,6 +15,12 @@ body {
   min-height: 100%;
 }
 
+.column{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .sidebar {
   width: 250px;
   background: whitesmoke;

@@ -107,20 +107,20 @@ let dataPage model dispatch =
         .Elt()
 
 
-let menuItem (model: Model) (page: Page) (text: string) =
-    Main.MenuItem()
-        .Active(if model.page = page then "is-active" else "")
-        .Url(router.Link page)
-        .Text(text)
-        .Elt()
+// let menuItem (model: Model) (page: Page) (text: string) =
+//     Main.MenuItem()
+//         .Active(if model.page = page then "is-active" else "")
+//         .Url(router.Link page)
+//         .Text(text)
+//         .Elt()
 
 let view model dispatch =
     Main()
-        .Menu(concat {
-            menuItem model Home "Home"
-            // menuItem model Counter "Counter"
-            // menuItem model Data "Download data"
-        })
+        // .Menu(concat {
+        //     menuItem model Home "Home"
+        //     // menuItem model Counter "Counter"
+        //     // menuItem model Data "Download data"
+        // })
         .Body(
             cond model.page <| function
             | Home -> counterPage model dispatch
@@ -130,7 +130,7 @@ let view model dispatch =
         )
         .Error(
             cond model.error <| function
-            | None -> empty()
+            | None -> empty() //
             | Some err ->
                 Main.ErrorNotification()
                     .Text(err)
