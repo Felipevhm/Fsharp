@@ -1,22 +1,38 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 html, body {
-  height: 100%;
+   height: 100%;  
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  height: 102vh;
+
+  background-color: rgb(151, 53, 138);
 }
 
 #main {
   flex: 1;
+  height: 100%;
 }
 
 #main > .columns {
-  min-height: 100%;
+  height: 100%;
+  min-width: 100vw;
+
+  background: rgb(157, 179, 113);
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
 }
 
-.sidebar {
+/* .sidebar {
   width: 250px;
   background: whitesmoke;
   min-height: 100%;
-}
+} */

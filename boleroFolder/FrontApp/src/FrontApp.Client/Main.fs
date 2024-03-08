@@ -83,52 +83,52 @@ type Main = Template<"wwwroot/main.html">
 let homePage model dispatch =
     Main.Home().Elt()
 
-let counterPage model dispatch =
-    Main.Counter()
-        .Decrement(fun _ -> dispatch Decrement)
-        .Increment(fun _ -> dispatch Increment)
-        .Value(model.counter, fun v -> dispatch (SetCounter v))
-        .Elt()
+// let counterPage model dispatch =
+//     Main.Counter()
+//         .Decrement(fun _ -> dispatch Decrement)
+//         .Increment(fun _ -> dispatch Increment)
+//         .Value(model.counter, fun v -> dispatch (SetCounter v))
+//         .Elt()
 
-let dataPage model dispatch =
-    Main.Data()
-        .Reload(fun _ -> dispatch GetBooks)
-        .Rows(cond model.books <| function
-            | None ->
-                Main.EmptyData().Elt()
-            | Some books ->
-                forEach books <| fun book ->
-                    tr {
-                        td { book.title }
-                        td { book.author }
-                        td { book.publishDate.ToString("yyyy-MM-dd") }
-                        td { book.isbn }
-                    })
-        .Elt()
+// let dataPage model dispatch =
+//     Main.Data()
+//         .Reload(fun _ -> dispatch GetBooks)
+//         .Rows(cond model.books <| function
+//             | None ->
+//                 Main.EmptyData().Elt()
+//             | Some books ->
+//                 forEach books <| fun book ->
+//                     tr {
+//                         td { book.title }
+//                         td { book.author }
+//                         td { book.publishDate.ToString("yyyy-MM-dd") }
+//                         td { book.isbn }
+//                     })
+//         .Elt()
 
 
-let menuItem (model: Model) (page: Page) (text: string) =
-    Main.MenuItem()
-        .Active(if model.page = page then "is-active" else "")
-        .Url(router.Link page)
-        .Text(text)
-        .Elt()
+// let menuItem (model: Model) (page: Page) (text: string) =
+//     Main.MenuItem()
+//         .Active(if model.page = page then "is-active" else "")
+//         .Url(router.Link page)
+//         .Text(text)
+//         .Elt()
 
 let view model dispatch =
     Main()
-        .Menu(concat {
-            menuItem model Home "Home"
-            menuItem model Counter "Counter"
-            menuItem model Data "Download data"
-        })
-        .Body(
-            cond model.page <| function
+        // .Menu(concat {
+        //     menuItem model Home "Home"
+        //     menuItem model Counter "Counter"
+        //     menuItem model Data "Download data"
+        // })
+        .Body( //
+            cond model.page <| function 
             | Home -> homePage model dispatch
-            | Counter -> counterPage model dispatch
-            | Data ->
-                dataPage model dispatch
+            // | Counter -> counterPage model dispatch
+            // | Data ->
+            //     dataPage model dispatch
         )
-        .Error(
+        .Error( 
             cond model.error <| function
             | None -> empty()
             | Some err ->
