@@ -14,7 +14,7 @@ type Page =
     | [<EndPoint "/counter">] Counter
     | [<EndPoint "/data">] Data
 
-/// The Elmish application's model.
+/// The Elmish application's model. //
 type Model =
     {
         page: Page
