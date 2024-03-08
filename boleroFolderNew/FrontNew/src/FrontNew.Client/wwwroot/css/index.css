@@ -26,3 +26,21 @@ body {
   background: whitesmoke;
   min-height: 100%;
 }
+
+.counter-wrapper{
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+}
+
+.group-buttons{
+  width: 100%;
+  margin: 30px auto;
+  display: flex;
+  
+  align-items: center;
+  justify-content: space-evenly;
+}
+

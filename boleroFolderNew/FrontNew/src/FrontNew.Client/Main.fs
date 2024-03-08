@@ -8,7 +8,7 @@ open Elmish
 open Bolero
 open Bolero.Html
 
-/// Routing endpoints definition.
+/// Routing endpoints definition. 
 type Page =
     | [<EndPoint "/">] Home
     | [<EndPoint "/counter">] Counter
@@ -21,6 +21,7 @@ type Model =
         counter: int
         books: Book[] option
         error: string option
+        textOut: string
     }
 
 and Book =
@@ -37,6 +38,7 @@ let initModel =
         counter = 0
         books = None
         error = None
+        textOut = ""
     }
 
 
@@ -45,6 +47,12 @@ type Message =
     | SetPage of Page
     | Increment
     | Decrement
+    
+    | PressedA
+    | PressedB
+    | PressedC 
+    // | StringHandler of string
+
     | SetCounter of int
     | GetBooks
     | GotBooks of Book[]
@@ -56,12 +64,21 @@ let update (http: HttpClient) message model =
     | SetPage page ->
         { model with page = page }, Cmd.none
 
+    | PressedA ->
+        { model with textOut = "A" }, Cmd.none
+    | PressedB ->
+        { model with textOut = "B" }, Cmd.none
+    | PressedC ->
+        { model with textOut = "C" }, Cmd.none 
+
+    // | StringHandler  passedText ->
+    //     { model with textOut = passedText }, Cmd.none
     | Increment ->
         { model with counter = model.counter + 1 }, Cmd.none
     | Decrement ->
         { model with counter = model.counter - 1 }, Cmd.none
     | SetCounter value ->
-        { model with counter = value }, Cmd.none //
+        { model with counter = value }, Cmd.none 
     | GetBooks ->
         let getBooks() = http.GetFromJsonAsync<Book[]>("/books.json")
         let cmd = Cmd.OfTask.either getBooks () GotBooks Error
@@ -80,12 +97,19 @@ let router = Router.infer SetPage (fun model -> model.page)
 type Main = Template<"wwwroot/main.html">
 
 let homePage model dispatch =
-    Main.Home().Elt()
+    Main.Home().Elt() 
 
 let counterPage model dispatch =
     Main.Counter()
         .Decrement(fun _ -> dispatch Decrement)
         .Increment(fun _ -> dispatch Increment)
+
+        .PressedA(fun _ -> dispatch PressedA)
+        .PressedB(fun _ -> dispatch PressedB)
+        .PressedC(fun _ -> dispatch PressedC)
+        // .CallHandler("A", fun passedText -> dispatch (StringHandler passedText))
+        .TheText(model.textOut)
+
         .Value(model.counter, fun v -> dispatch (SetCounter v))
         .Elt()
 
@@ -114,7 +138,7 @@ let view model dispatch =
         )
         .Error(
             cond model.error <| function
-            | None -> empty() //
+            | None -> empty() 
             | Some err ->
                 Main.ErrorNotification()
                     .Text(err)
