@@ -12,7 +12,7 @@ open Bolero.Html
 type Page =
     | [<EndPoint "/">] Home //
 
-/// The Elmish application's model.//
+/// The Elmish application's model. //
 type Model =
     {
         page: Page
