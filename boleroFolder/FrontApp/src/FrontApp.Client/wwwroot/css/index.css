@@ -1,16 +1,25 @@
+*{
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
 html, body {
-  height: 100%;
+   height: 100%;  
 }
 
 body {
-  display: flex;
-  flex-direction: column;
+  height: 102vh;
+
+  background-color: rgb(28, 36, 76);
 }
 
 #main {
   flex: 1;
+  height: 100%;
 }
 
+<<<<<<< HEAD
 #main > .container {
   min-height: 100%;
   min-width: 100%;
@@ -43,3 +52,38 @@ button{
 }
 
 
+=======
+#main > .columns {
+  height: 100%;
+  min-width: 100vw;
+
+
+
+
+}
+
+.content{
+  width: 100%;
+  height: 100%;
+
+  background: rgb(157, 179, 113);
+
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+
+  justify-content: center;
+  align-items: center;
+}
+
+button{
+  height: 60px;
+  width: 300px;
+}
+
+/* .sidebar {
+  width: 250px;
+  background: whitesmoke;
+  min-height: 100%;
+} */
+>>>>>>> new-fullstack

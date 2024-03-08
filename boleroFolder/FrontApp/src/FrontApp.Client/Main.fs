@@ -10,9 +10,7 @@ open Bolero.Html
 
 /// Routing endpoints definition.
 type Page =
-    | [<EndPoint "/">] Home
-    | [<EndPoint "/counter">] Counter
-    | [<EndPoint "/data">] Data
+    | [<EndPoint "/">] Home //
 
 /// The Elmish application's model.//
 type Model =
@@ -89,6 +87,7 @@ let router = Router.infer SetPage (fun model -> model.page)
 type Main = Template<"wwwroot/main.html">
 
 let homePage model dispatch =
+<<<<<<< HEAD
     Main.Home().Elt() 
 
 // let counterPage model dispatch =
@@ -143,6 +142,14 @@ let view model dispatch =
                     .Text(err)
                     .Hide(fun _ -> dispatch ClearError)
                     .Elt()
+=======
+    Main.Home().Elt()
+let view model dispatch =
+    Main()
+        .Body( //
+            cond model.page <| function 
+            | Home -> homePage model dispatch
+>>>>>>> new-fullstack
         )
         .Elt() //
 
