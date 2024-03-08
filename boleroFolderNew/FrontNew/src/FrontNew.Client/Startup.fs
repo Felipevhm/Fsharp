@@ -1,4 +1,4 @@
-namespace FrontApp.Client
+namespace FrontNew.Client
 
 open Microsoft.AspNetCore.Components.WebAssembly.Hosting
 open Microsoft.Extensions.DependencyInjection

@@ -7,7 +7,7 @@ dotnet new -i Bolero.Templates
 --- TO CREATE THE BOLERO APP ---
  //   Then, you can create a new Bolero application:
 
-dotnet new bolero-app -o FrontApp --server=false
+dotnet new bolero-app -o FrontNew --server=false
 
 
 
@@ -15,7 +15,7 @@ dotnet new bolero-app -o FrontApp --server=false
 cd FrontApp
 dotnet run --project src/FrontApp.Client
 
-dotnet watch --project src/FrontApp.Client
+dotnet watch --project src/FrontNew.Client
 
 
 
