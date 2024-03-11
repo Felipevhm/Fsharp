@@ -8,6 +8,13 @@ open Elmish
 open Bolero
 open Bolero.Html
 
+
+
+let myDiv dispatch =
+    div [ attr.id "someId" ] 
+    [ button [ ] [ str "Click me" ]]
+
+
 /// Routing endpoints definition.
 type Page =
     | [<EndPoint "/">] Home
@@ -117,6 +124,7 @@ let menuItem (model: Model) (page: Page) (text: string) =
 let view model dispatch =
     Main()
         .Menu(concat {
+            (myDiv dispatch)
             menuItem model Home "Home"
             menuItem model Counter "Counter"
             menuItem model Data "Download data"

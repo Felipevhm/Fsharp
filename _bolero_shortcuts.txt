@@ -9,6 +9,7 @@ dotnet new -i Bolero.Templates
 
 dotnet new bolero-app -o GenericApp --server=false
 
+dotnet new bolero-app -o WithServer
 
 
 --- TO RUN -----
@@ -16,6 +17,8 @@ cd GenericApp
 dotnet run --project src/GenericApp.Client
 
 dotnet watch --project src/GenericApp.Client
+
+dotnet add GenericApp package Fulma.Extensions.Wikiki.Tooltip
 
 
 
