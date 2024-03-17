@@ -18,7 +18,7 @@ dotnet run --project src/GenericApp.Client
 
 dotnet watch --project src/GenericApp.Client
 
-dotnet add GenericApp package Fulma.Extensions.Wikiki.Tooltip
+dotnet watch --project src/WithServer.Server
 
 
 

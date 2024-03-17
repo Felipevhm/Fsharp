@@ -192,6 +192,20 @@ let menuItem (model: Model) (page: Page) (text: string) =
         .Text(text)
         .Elt()
 
+let someDiv = doctypeHtml {        
+                div {
+                attr.id( "example-div"); 
+                attr.title("Example title");
+                    button {
+                            attr.id( "example-button")
+                            attr.style("
+                                        width:100%; 
+                                        background-color: #3EC137;
+                                        font-weight:bold")
+                            "ONE GREAT hello from btn"}
+                        }
+    
+    }
 let view model dispatch =
     Main()
         .Menu(concat {

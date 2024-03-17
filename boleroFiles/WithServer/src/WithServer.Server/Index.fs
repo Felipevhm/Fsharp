@@ -5,6 +5,8 @@ open Bolero.Html
 open Bolero.Server.Html
 open WithServer
 
+
+
 let page = doctypeHtml {
     head {
         meta { attr.charset "UTF-8" }
@@ -15,6 +17,22 @@ let page = doctypeHtml {
         link { attr.rel "stylesheet"; attr.href "css/index.css" }
         link { attr.rel "stylesheet"; attr.href "WithServer.Client.styles.css" }
     }
+
+    let someDiv = doctypeHtml {        
+                div {
+                attr.id( "example-div"); 
+                attr.title("Example title");
+                    button {
+                            attr.id( "example-button")
+                            attr.style("
+                                        width:100%; 
+                                        background-color: #3EC137;
+                                        font-weight:bold")
+                            "ONE GREAT hello from btn"}
+                        }
+    
+    }
+
     body {
         nav {
             attr.``class`` "navbar is-dark"
@@ -25,11 +43,12 @@ let page = doctypeHtml {
                 a {
                     attr.``class`` "navbar-item has-text-weight-bold is-size-5"
                     attr.href "https://fsbolero.io"
-                    img { attr.style "height:40px"; attr.src "https://github.com/fsbolero/website/raw/master/src/Website/img/wasm-fsharp.png" }
+                    img { attr.style "height:40px"; attr.src "https://github.com/fsbolero/website/raw/master/src/Website/img/wasm-fsharp.png";}
                     "  Bolero"
                 }
             }
         }
+        someDiv
         div { attr.id "main"; comp<Client.Main.MyApp> }
         boleroScript
     }
