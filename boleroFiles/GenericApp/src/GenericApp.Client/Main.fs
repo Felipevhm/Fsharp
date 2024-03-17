@@ -76,7 +76,7 @@ let update (http: HttpClient) message model =
     | ClearError ->
         { model with error = None }, Cmd.none
 
-/// Connects the routing system to the Elmish application.
+/// Connects the routing system to the Elmish application. //
 let router = Router.infer SetPage (fun model -> model.page)
 
 type Main = Template<"wwwroot/main.html">
